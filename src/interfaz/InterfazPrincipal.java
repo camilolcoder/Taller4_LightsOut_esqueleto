@@ -8,7 +8,7 @@ import java.awt.*;
 public class InterfazPrincipal extends JFrame {
 
     private Tablero tablero;
-    private int tamanoTablero = 6;
+    private int tamanoTablero = 5;
 
     private PanelDificultad  panelDificultad;
     private PanelTablero panelTablero;
@@ -43,9 +43,15 @@ public class InterfazPrincipal extends JFrame {
         ventana.setVisible(true);
     }
 
-    public void jugar(int casillaX, int casillaY)
+    public void jugar(int casillaY, int casillaX)
     {
-        tablero.jugar(casillaX, casillaY);
+        tablero.jugar(casillaY, casillaX);
+    }
+
+    public boolean[][] darTablero()
+    {
+        tablero = new Tablero(tamanoTablero);
+        return tablero.darTablero();
     }
 
     public void darTamanoTablero(int tamanoP)
