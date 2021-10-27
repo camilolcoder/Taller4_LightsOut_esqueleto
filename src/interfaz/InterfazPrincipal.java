@@ -7,8 +7,9 @@ import java.awt.*;
 
 public class InterfazPrincipal extends JFrame {
 
-    private Tablero tablero;
     private int tamanoTablero = 5;
+    private Tablero tablero = new Tablero(tamanoTablero);
+    //private Tablero tablero;
 
     private PanelDificultad  panelDificultad;
     private PanelTablero panelTablero;
@@ -36,13 +37,6 @@ public class InterfazPrincipal extends JFrame {
         add(panelDatosJugadas, BorderLayout.SOUTH);
     }
 
-    public static void main(String[] args)
-    {
-        InterfazPrincipal ventana = new InterfazPrincipal();
-        ventana.setLocationRelativeTo(null);
-        ventana.setVisible(true);
-    }
-
     public void jugar(int casillaY, int casillaX)
     {
         tablero.jugar(casillaY, casillaX);
@@ -50,7 +44,7 @@ public class InterfazPrincipal extends JFrame {
 
     public boolean[][] darTablero()
     {
-        tablero = new Tablero(tamanoTablero);
+        //tablero = new Tablero(tamanoTablero);
         return tablero.darTablero();
     }
 
@@ -64,5 +58,12 @@ public class InterfazPrincipal extends JFrame {
     public int getTamanoTablero()
     {
         return tamanoTablero;
+    }
+
+    public static void main(String[] args)
+    {
+        InterfazPrincipal ventana = new InterfazPrincipal();
+        ventana.setLocationRelativeTo(null);
+        ventana.setVisible(true);
     }
 }

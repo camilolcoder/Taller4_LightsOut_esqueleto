@@ -28,9 +28,8 @@ public class PanelTablero extends JPanel implements MouseListener {
     {
         int deltaX = getWidth()/principal.darTablero().length;
         int deltaY = getHeight()/principal.darTablero().length;
-        int x_cor = 0;
-        int y_cor = 0;
         int cuadrados = 0;
+
         Graphics2D g2d = (Graphics2D) g;
         int tamanoTablero = principal.getTamanoTablero();
         if (tamanoTablero == 5)
@@ -59,16 +58,13 @@ public class PanelTablero extends JPanel implements MouseListener {
                 }
                 else
                 {
-                    Rectangle2D rect = new Rectangle2D.Double(i*50, j*50, 50, 50);
+                    Rectangle2D rect = new Rectangle2D.Double(i*deltaX, j*deltaY, deltaX, deltaY);
                     g2d.setColor(Color.GRAY);
                     g2d.fill(rect);
                     g2d.setColor(Color.BLACK);
                     g2d.draw(rect);
                 }
-                //x_cor += 50;
             }
-            //x_cor = 0;
-            //y_cor += 50;
         }
         updateUI();
     }
@@ -85,7 +81,7 @@ public class PanelTablero extends JPanel implements MouseListener {
         int[] casilla = convertirCoordenadasACasilla(click_x, click_y);
         //cantidades[casilla[0]][casilla[1]]++;
         System.out.println("x: "+casilla[1]);
-        System.out.print("y:"+casilla[0]);
+        System.out.println("y: "+casilla[0]);
         principal.jugar(casilla[1], casilla[0]);
         this.ultima_fila = casilla[0];
         this.ultima_columna = casilla[1];
