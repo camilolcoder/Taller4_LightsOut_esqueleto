@@ -13,12 +13,14 @@ import java.awt.geom.Rectangle2D;
 public class PanelTablero extends JPanel implements MouseListener {
 
     private InterfazPrincipal principal;
+    private Tablero tablero;
     private int ultima_fila;
     private int ultima_columna;
 
-    public PanelTablero(InterfazPrincipal Pprincipal)
+    public PanelTablero(InterfazPrincipal Pprincipal, Tablero tableroP)
     {
         principal = Pprincipal;
+        tablero = tableroP;
         addMouseListener(this);
         //setSize(500,500);
     }
@@ -26,8 +28,8 @@ public class PanelTablero extends JPanel implements MouseListener {
     @Override
     public void paintComponent(Graphics g)
     {
-        int deltaX = getWidth()/principal.darTablero().length;
-        int deltaY = getHeight()/principal.darTablero().length;
+        int deltaX = getWidth()/tablero.darTablero().length;
+        int deltaY = getHeight()/tablero.darTablero().length;
         int cuadrados = 0;
 
         Graphics2D g2d = (Graphics2D) g;
@@ -48,7 +50,7 @@ public class PanelTablero extends JPanel implements MouseListener {
         {
             for (int j = 0; j < cuadrados; j++)
             {
-                if (principal.darTablero()[i][j])
+                if (tablero.darTablero()[i][j])
                 {
                     Rectangle2D rect = new Rectangle2D.Double(i*deltaX, j*deltaY, deltaX, deltaY);
                     g2d.setColor(Color.YELLOW);
@@ -82,9 +84,15 @@ public class PanelTablero extends JPanel implements MouseListener {
         //cantidades[casilla[0]][casilla[1]]++;
         System.out.println("x: "+casilla[1]);
         System.out.println("y: "+casilla[0]);
-        principal.jugar(casilla[1], casilla[0]);
+        tablero.jugar(casilla[1], casilla[0]);
         this.ultima_fila = casilla[0];
         this.ultima_columna = casilla[1];
+        principal.countJugada();
+        boolean state = principal.checkIluminado();
+        if (state)
+        {
+            principal.showWinner();
+        }
         repaint();
 
     }
@@ -105,7 +113,7 @@ public class PanelTablero extends JPanel implements MouseListener {
     }
 
     private int[] convertirCoordenadasACasilla(int x, int y) {
-        int ladoTablero = principal.darTablero().length; //tablero.length;
+        int ladoTablero = tablero.darTablero().length; //tablero.length;
         int altoPanelTablero = getHeight();
         int anchoPanelTablero = getWidth();
         int altoCasilla = altoPanelTablero / ladoTablero;

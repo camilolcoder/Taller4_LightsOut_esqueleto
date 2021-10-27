@@ -1,15 +1,16 @@
 package interfaz;
 import uniandes.dpoo.taller4.modelo.Tablero;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class InterfazPrincipal extends JFrame {
 
     private int tamanoTablero = 5;
-    private Tablero tablero = new Tablero(tamanoTablero);
-    //private Tablero tablero;
+    private int dificultad = 3;
+    //private Tablero tablero = new Tablero(tamanoTablero);
+    private Tablero tablero;
 
     private PanelDificultad  panelDificultad;
     private PanelTablero panelTablero;
@@ -18,6 +19,8 @@ public class InterfazPrincipal extends JFrame {
 
     public InterfazPrincipal()
     {
+        tablero = new Tablero(tamanoTablero);
+        tablero.desordenar(dificultad);
         setTitle("LightsOut");
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -27,7 +30,7 @@ public class InterfazPrincipal extends JFrame {
         add(panelDificultad, BorderLayout.NORTH);
         panelDificultad.setBackground(Color.BLUE);
 
-        panelTablero = new PanelTablero(this);
+        panelTablero = new PanelTablero(this, tablero);
         add(panelTablero, BorderLayout.CENTER);
 
         panelOpcionesEste = new PanelOpcionesEste(this);
@@ -37,7 +40,7 @@ public class InterfazPrincipal extends JFrame {
         add(panelDatosJugadas, BorderLayout.SOUTH);
     }
 
-    public void jugar(int casillaY, int casillaX)
+    /*public void jugar(int casillaY, int casillaX)
     {
         tablero.jugar(casillaY, casillaX);
     }
@@ -46,6 +49,16 @@ public class InterfazPrincipal extends JFrame {
     {
         //tablero = new Tablero(tamanoTablero);
         return tablero.darTablero();
+    }*/
+
+    public void setDificultad(int cantidad)
+    {
+        dificultad = cantidad;
+    }
+
+    public void desordenar()
+    {
+        tablero.desordenar(dificultad);
     }
 
     public void darTamanoTablero(int tamanoP)
@@ -58,6 +71,40 @@ public class InterfazPrincipal extends JFrame {
     public int getTamanoTablero()
     {
         return tamanoTablero;
+    }
+
+    public void updateJugador(String nuevoJugador)
+    {
+        panelDatosJugadas.nuevoJugador(nuevoJugador);
+    }
+
+    public int getJugadas()
+    {
+        return tablero.darJugadas();
+    }
+
+    public void countJugada()
+    {
+        panelDatosJugadas.jugadas();
+    }
+
+    public boolean checkIluminado()
+    {
+        return tablero.tableroIluminado();
+    }
+
+    public void reiniciar()
+    {
+        tablero.reiniciar();
+    }
+
+    public void showWinner()
+    {
+        JDialog dialog = new JDialog();
+        dialog.setVisible(true);
+        dialog.setSize(300,300);
+        dialog.setLocationRelativeTo(this);
+        dialog.add(new JLabel("felicidades ganaste"));
     }
 
     public static void main(String[] args)
