@@ -7,6 +7,8 @@ public class PanelDatosJugadas extends JPanel {
 
     private InterfazPrincipal principal;
 
+    private String nombreJugador = "invitado";
+
     private JLabel jugadasText;
     private JLabel jugadas;
     private JLabel jugadorText;
@@ -32,9 +34,19 @@ public class PanelDatosJugadas extends JPanel {
     public void nuevoJugador(String jugadorNuevo)
     {
         jugador.setText(jugadorNuevo);
+        nombreJugador = jugadorNuevo;
     }
     public void jugadas()
     {
         jugadas.setText(String.valueOf(principal.getJugadas()));
+    }
+    public void reiniciarContador()
+    {
+        jugadas.setText("0");
+    }
+
+    public String getJugador()
+    {
+        return nombreJugador;
     }
 }

@@ -4,11 +4,17 @@ import uniandes.dpoo.taller4.modelo.Tablero;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class InterfazPrincipal extends JFrame {
 
     private int tamanoTablero = 5;
-    private int dificultad = 3;
+    private int dificultad = 2;
+    private String jugadorActual;
     //private Tablero tablero = new Tablero(tamanoTablero);
     private Tablero tablero;
 
@@ -56,15 +62,16 @@ public class InterfazPrincipal extends JFrame {
         dificultad = cantidad;
     }
 
-    public void desordenar()
+    /*public void desordenar()
     {
         tablero.desordenar(dificultad);
-    }
+    }*/
 
     public void darTamanoTablero(int tamanoP)
     {
         //tablero = new Tablero(tamanoP);
         tamanoTablero = tamanoP;
+        //tablero.setTamano(tamanoTablero);
         panelTablero.repaint();
     }
 
@@ -76,6 +83,7 @@ public class InterfazPrincipal extends JFrame {
     public void updateJugador(String nuevoJugador)
     {
         panelDatosJugadas.nuevoJugador(nuevoJugador);
+        jugadorActual = nuevoJugador;
     }
 
     public int getJugadas()
@@ -95,6 +103,8 @@ public class InterfazPrincipal extends JFrame {
 
     public void reiniciar()
     {
+        panelDatosJugadas.reiniciarContador();
+        tablero.desordenar(dificultad);
         tablero.reiniciar();
     }
 
@@ -102,9 +112,58 @@ public class InterfazPrincipal extends JFrame {
     {
         JDialog dialog = new JDialog();
         dialog.setVisible(true);
-        dialog.setSize(300,300);
+        dialog.setSize(350,100);
+        dialog.setLocationRelativeTo(panelTablero);
+        dialog.setLayout(new GridLayout(3, 1));
+        //dialog.add(new JLabel("felicidades ganaste", SwingConstants.CENTER));
+        dialog.add(new JLabel("Felicidades "+panelDatosJugadas.getJugador()+" ganaste!!!", SwingConstants.CENTER));
+        dialog.add(new JLabel("Obtuviste "+getPuntaje()+" puntos", SwingConstants.CENTER));
+        //dialog.setBounds(400,323,34,44);
+    }
+
+    public int getPuntaje()
+    {
+        return tablero.calcularPuntaje();
+    }
+
+    public void getTop10()
+    {
+
+    }
+
+    public void printTop10()
+    {
+        JDialog dialog = new JDialog();
+        dialog.setVisible(true);
         dialog.setLocationRelativeTo(this);
-        dialog.add(new JLabel("felicidades ganaste"));
+        dialog.setSize(400, 500);
+        dialog.setLayout(new GridLayout(11, 1));
+        String filepath = "C:\\Users\\juank\\Desktop\\Talleres\\Taller4_LightsOut_esqueleto\\src\\DataBase\\jugadores.csv" ;
+        try(Scanner scanner = new Scanner(new File(filepath)))
+        {
+            scanner.useDelimiter(",");
+            while (scanner.hasNext())
+            {
+                dialog.add(new JLabel(scanner.next() + "|"));
+            }
+            scanner.close();
+        }
+        catch (IOException e)
+        {
+            System.out.println("Error leyendo el archivo de la base de datos");
+            e.printStackTrace();
+        }
+        //dialog.add(new JLabel("Felicidades "+panelDatosJugadas.getJugador()+" ganaste!!!", SwingConstants.CENTER));
+        /*List textos = new ArrayList();
+        for (String text : textos)
+        {
+
+        }*/
+    }
+
+    public String getJugador()
+    {
+        return jugadorActual;
     }
 
     public static void main(String[] args)

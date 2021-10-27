@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class PanelOpcionesEste extends JPanel implements ActionListener {
 
@@ -52,16 +54,18 @@ public class PanelOpcionesEste extends JPanel implements ActionListener {
         String comando = e.getActionCommand();
         if (comando.equals(NUEVO))
         {
+            principal.reiniciar();
             System.out.println("Nuevo was pressed");
         }
         else if (comando.equals(REINICIAR))
         {
             System.out.println("Reiniciar was pressed");
             principal.reiniciar();
-            principal.desordenar();
+            //principal.desordenar();
         }
         else if (comando.equals(TOP10))
         {
+            principal.printTop10();
             System.out.println("TOP 10 was pressed");
         }
         else if (comando.equals(CAMJUGA))

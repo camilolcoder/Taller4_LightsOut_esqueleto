@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class PanelTablero extends JPanel implements MouseListener {
 
@@ -91,7 +93,18 @@ public class PanelTablero extends JPanel implements MouseListener {
         boolean state = principal.checkIluminado();
         if (state)
         {
+            String jugador = principal.getJugador();
+            String puntos = String.valueOf(principal.getPuntaje());
             principal.showWinner();
+            String filepath = "C:\\Users\\juank\\Desktop\\Talleres\\Taller4_LightsOut_esqueleto\\src\\DataBase\\jugadores.csv" ;
+            StringBuilder stringBuilder = new StringBuilder();
+            //stringBuilder.append("Name").append(",").append("Age").append(",").append("Sex").append("\n");
+            stringBuilder.append(jugador).append(",").append(puntos).append("\n");
+            try (FileWriter fileWriter = new FileWriter(filepath, true)) {
+                fileWriter.write(stringBuilder.toString());
+            } catch (IOException car) {
+                car.printStackTrace();
+            }
         }
         repaint();
 

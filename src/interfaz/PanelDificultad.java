@@ -63,18 +63,18 @@ public class PanelDificultad extends JPanel implements ActionListener {
         if (comando.equals(FACIL))
         {
             System.out.println("You pressed facil");
-            System.out.println(tamano);
-            principal.setDificultad(4);
+            //System.out.println(tamano);
+            principal.setDificultad(2);
         }
         else if (comando.equals(MEDIO))
         {
             System.out.println("You pressed medio");
-            principal.setDificultad(8);
+            principal.setDificultad(4);
         }
         else if (comando.equals(DIFICIL))
         {
             System.out.println("You pressed dificil");
-            principal.setDificultad(16);
+            principal.setDificultad(8);
         }
         if(tamano.equals("5x5"))
         {
